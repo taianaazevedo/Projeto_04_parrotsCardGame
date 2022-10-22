@@ -1,12 +1,11 @@
 //pergunta a quantidade de cartas:
-
-let qntd = parseInt(prompt("Com quantas cartas você quer jogar? ;)"))
+ 
+let qntd = prompt('Com quantas cartas você quer jogar?')
 
 while(qntd < 4 || qntd > 14 || (qntd % 2) !== 0){
-    alert("Número inválido! Insira um número par entre 4 e 14.")
-       parseInt(prompt("Com quantas cartas você quer jogar?"));        
-
+    qntd = prompt('Com quantas cartas você quer jogar?');        
 }
+
 
 //cria a array com os gifs:
 
@@ -27,7 +26,10 @@ function criaGifs(){
 for(i = 0; i < (qntd / 2); i++){
         const versoGif = periquitos[i];
         gifs.push(versoGif) + gifs.push(versoGif);
+
+        
 }
+
 }
 criaGifs();
 
@@ -38,10 +40,11 @@ gifs.sort(comparador)
 function comparador() { 
 	return Math.random() - 0.5; 
 }
+//carta completa: com a frente e o verso.
 
-let card;
+let cartaCompleta;
 
-//criar cartas 
+//criar cartas - aula de quarta-feira
 
 function criarCartas(){
 
@@ -49,13 +52,17 @@ function criarCartas(){
     
     for(i = 0; i < gifs.length; i++){    
            
-        let cartinha = `<div class="carta">        
+        let cartaCompleta = `<div class="carta" onclick="flipCarta(this)">        
         <div class="lado frente"></div>
         <div class="lado verso"><img src="./imagens/${gifs[i]}"</div>
         </div>`;
         
-        listaCartas.innerHTML += cartinha;    
+        listaCartas.innerHTML += cartaCompleta;    
 
     }
 }
 criarCartas();
+
+function flipCarta(cartaSelecionada){
+    cartaSelecionada.classList.add('virada');    
+}
