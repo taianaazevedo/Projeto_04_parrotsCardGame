@@ -10,13 +10,13 @@ while(qntd < 4 || qntd > 14 || (qntd % 2) !== 0){
 //cria a array com os gifs:
 
 const periquitos = [
-    'bobrossparrot.gif', 
-    'explodyparrot.gif', 
-    'fiestaparrot.gif', 
-    'metalparrot.gif', 
-    'revertitparrot.gif', 
-    'tripletsparrot.gif', 
-    'unicornparrot.gif'
+    'bobrossparrot', 
+    'explodyparrot', 
+    'fiestaparrot', 
+    'metalparrot', 
+    'revertitparrot', 
+    'tripletsparrot', 
+    'unicornparrot'
 ]
 
 const gifs = [];
@@ -42,7 +42,8 @@ function comparador() {
 }
 //carta completa: com a frente e o verso.
 
-let cartaCompleta;
+
+let card;
 
 //criar cartas - aula de quarta-feira
 
@@ -52,17 +53,59 @@ function criarCartas(){
     
     for(i = 0; i < gifs.length; i++){    
            
-        let cartaCompleta = `<div class="carta" onclick="flipCarta(this)">        
+        let card = `<div class="carta" data-periquito="${gifs[i]}"onclick="flipCarta(this)">        
         <div class="lado frente"></div>
-        <div class="lado verso"><img src="./imagens/${gifs[i]}"</div>
+        <div class="lado verso"><img src="./imagens/${gifs[i]}.gif"</div>
         </div>`;
         
-        listaCartas.innerHTML += cartaCompleta;    
+        listaCartas.innerHTML += card;    
 
     }
 }
 criarCartas();
 
-function flipCarta(cartaSelecionada){
-    cartaSelecionada.classList.add('virada');    
+let primeiraCarta = '';
+let segundaCarta = '';
+
+function checaCartas(){
+    const primeiroPeriquito = primeiraCarta.getAttribute('data-periquito');
+    const SegundoPeriquito = segundaCarta.getAttribute('data-periquito');
+
+    if(primeiroPeriquito === SegundoPeriquito){
+        
+        primeiraCarta = '';
+        segundaCarta = '';
+            
+
+
+    } else {
+
+        setTimeout(() => {
+            primeiraCarta.classList.remove('virada');
+            segundaCarta.classList.remove('virada');
+
+            primeiraCarta = '';
+            segundaCarta = '';
+            
+        }, 1000);
+        
+    }
 }
+checaCartas();
+
+function flipCarta(cartaSelecionada){
+    
+  if (cartaSelecionada.classList.contains('virada')){
+    return;
+  }
+  if( primeiraCarta === ''){
+    cartaSelecionada.classList.add('virada');
+    primeiraCarta = cartaSelecionada;
+  } else if (segundaCarta === ''){
+    cartaSelecionada.classList.add('virada');
+    segundaCarta = cartaSelecionada;
+
+  }
+  checaCartas();
+}
+flipCarta();
