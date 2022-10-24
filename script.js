@@ -61,6 +61,7 @@ criarCartas();
 let primeiraCarta = '';
 let segundaCarta = '';
 let parFormado = 0;
+let cliques = 0;
 
 
 //função que verifica se as cartas são iguais
@@ -96,8 +97,7 @@ checaCartas();
 function flipCarta(cartaSelecionada){
         
   if (cartaSelecionada.classList.contains('virada')){ 
-      
-    return;
+      return;
   }
   if( primeiraCarta === ''){
     cartaSelecionada.classList.add('virada');
@@ -107,18 +107,18 @@ function flipCarta(cartaSelecionada){
     segundaCarta = cartaSelecionada;
 
   }  
-  
+  cliques++;
   checaCartas();
-
-
+    
 }
 flipCarta();
 
+//função que verifica se todas as cartas foram desviradas
 function fimJogo(){
   if(parFormado === (qntd / 2)){
     setTimeout(() => {
-      alert('Parabéns! Você venceu o jogo! =D')
-    }, 2000);
+      alert(`Parabéns! Você venceu o jogo em ${cliques} jogadas! =D`)
+    }, 1500);
     
   }
 }
